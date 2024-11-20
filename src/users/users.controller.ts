@@ -12,7 +12,7 @@ import {
 @Controller('users')
 export class UsersController {
   @Get() //Get /users or get with some query
-  findAll(@Query('role') role?: 'INTERN' | 'ENGINNEER|ADMIN') {
+  findAll(@Query('role') role?: 'INTERN' | 'ENGINEER' | 'ADMIN') {
     return [];
   }
   @Get(':id') // Get /users/:id
