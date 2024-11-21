@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -18,9 +19,9 @@ export class UsersController {
     return this.userService.findAll(role);
   }
   @Get(':id') // Get /users/:id
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     // +id convert the id into number type it's called unary
-    return this.userService.findOne(+id);
+    return this.userService.findOne(id);
   }
   @Post() // Post /users
   create(
@@ -35,7 +36,7 @@ export class UsersController {
   }
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body()
     updateUser: {
       name?: string;
@@ -43,10 +44,10 @@ export class UsersController {
       role?: 'ADMIN' | 'ENGINNEER' | 'INTERN';
     },
   ) {
-    return this.userService.update(+id, updateUser);
+    return this.userService.update(id, updateUser);
   }
   @Delete(':id')
-  deleteOne(@Param('id') id: string) {
+  deleteOne(@Param('id',ParseIntPipe) id: number) {
     return this.userService.delete(+id);
   }
 }
