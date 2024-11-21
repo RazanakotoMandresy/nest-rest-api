@@ -1,4 +1,2 @@
 dev: 
-	@nest start --watch
-bun: 
-	@bun run ./src/main.ts --watch
+	@bun run --watch ./src/main.ts
