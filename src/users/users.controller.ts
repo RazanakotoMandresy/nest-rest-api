@@ -10,6 +10,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create_user.dto';
+import { UpdateUserDto } from './dto/update_user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -26,28 +28,20 @@ export class UsersController {
   @Post() // Post /users
   create(
     @Body()
-    user: {
-      name: string;
-      email: string;
-      role: 'ADMIN' | 'ENGINNEER' | 'INTERN';
-    },
+    createUserDto: CreateUserDto,
   ) {
-    return this.userService.create(user);
+    return this.userService.create(createUserDto);
   }
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body()
-    updateUser: {
-      name?: string;
-      email?: string;
-      role?: 'ADMIN' | 'ENGINNEER' | 'INTERN';
-    },
+    updateUser: UpdateUserDto
   ) {
     return this.userService.update(id, updateUser);
   }
   @Delete(':id')
-  deleteOne(@Param('id',ParseIntPipe) id: number) {
+  deleteOne(@Param('id', ParseIntPipe) id: number) {
     return this.userService.delete(+id);
   }
 }
