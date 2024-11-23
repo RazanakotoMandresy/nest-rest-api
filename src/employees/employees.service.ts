@@ -6,22 +6,31 @@ import { DatabaseService } from 'src/database/database.service';
 export class EmployeesService {
   constructor(private readonly databaseSevice: DatabaseService) {}
   async create(createEmployeeDto: Prisma.EmployeeCreateInput) {
-    return 'This action adds a new employee';
+    return this.databaseSevice.employee.create({
+      data: createEmployeeDto,
+    });
   }
 
-  async findAll() {
-    return `This action returns all employees`;
+  async findAll(role?: 'INTERN' | 'ENGINEER' | 'ADMIN') {
+    if (role)
+      return this.databaseSevice.employee.findMany({
+        where: { role },
+      });
+    return this.databaseSevice.employee.findMany();
   }
 
   async findOne(id: number) {
-    return `This action returns a #${id} employee`;
+    return this.databaseSevice.employee.findUnique({ where: { id } });
   }
 
   async update(id: number, updateEmployeeDto: Prisma.EmployeeUpdateInput) {
-    return `This action updates a #${id} employee`;
+    return this.databaseSevice.employee.update({
+      where: { id },
+      data: updateEmployeeDto,
+    });
   }
 
   async remove(id: number) {
-    return `This action removes a #${id} employee`;
+    return this.databaseSevice.employee.delete({ where: { id } });
   }
 }
